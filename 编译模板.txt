@@ -1,0 +1,34 @@
+cmake_minimum_required(VERSION 3.22)
+
+# 设置用来编译项目的编译器
+set(CMAKE_CXX_COMPILER "cxx_compiler_path")
+set(CMAKE_C_COMPILER "c_compiler_path"")
+
+# 指定编译项目名
+project(project_name)
+
+## 设置 LLVM 路径，确保 LLVM 被正确找到
+set(LLVM_DIR "llvm_path")
+find_package(LLVM REQUIRED CONFIG)
+list(APPEND CMAKE_MODULE_PATH "${LLVM_CMAKE_DIR}")
+include(AddLLVM)
+add_definitions(${LLVM_DEFINITIONS})
+include_directories(${LLVM_INCLUDE_DIRS})
+include_directories("include")
+
+# 打印出变量的值，方便用户验证相关路径
+message(STATUS "=== LLVM CMake Directory ===")
+message(STATUS "LLVM_CMAKE_DIR = ${LLVM_CMAKE_DIR}")
+
+message(STATUS "=== LLVM Definitions ===")
+message(STATUS "LLVM_DEFINITIONS = ${LLVM_DEFINITIONS}")
+
+message(STATUS "=== LLVM Include Directories ===")
+message(STATUS "LLVM_INCLUDE_DIRS = ${LLVM_INCLUDE_DIRS}")
+
+add_llvm_library(project_name SHARED
+    这里填写需要编译的源文件
+    
+    DEPENDS
+    这里填写相关的组件
+)
